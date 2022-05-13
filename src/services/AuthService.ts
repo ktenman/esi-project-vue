@@ -1,18 +1,21 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8082/users/';
+const API_URL = 'http://localhost:8082/users';
+
+
 
 class AuthService {
     login(username: string, password: string) {
 
         return axios
-            .post(API_URL + 'authenticate', {
+            .post(API_URL + '/authenticate', {
                 "password": password,
                 "rememberMe": true,
                 "username": username
             }, {
                 headers: {
-                    "Content-Type" : "application/json"
+                    "Content-Type" : "application/json",
+                    "Access-Control-Allow-Origin": "*"
                 }
             })
             .then(response => {
@@ -32,11 +35,21 @@ class AuthService {
         localStorage.removeItem('user');
     }
 
-    register(username: string, email: string, password: string) {
-        return axios.post(API_URL + 'signup', {
+    register(username: string, lastName: string, firstName: string, email: string, password: string, type: string, address: string, phonenumber: string) {
+        return axios.post(API_URL + '', {
             username,
+            firstName,
+            lastName,
             email,
-            password
+            password,
+            type,
+            address,
+            phonenumber
+        }, {
+            headers: {
+                "Content-Type" : "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
         });
     }
 }
