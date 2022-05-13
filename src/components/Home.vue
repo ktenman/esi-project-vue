@@ -1,8 +1,31 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <h3>{{ content }}</h3>
+      <h3>List of all books</h3>
     </header>
+    <div id="books">
+      <table id="booksTable" class="table">
+        <thead>
+        <tr>
+          <th  v-for="(value, key) in content[0]">
+            {{key}}
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="book in content" :key='book'>
+          <td v-for="field in book" :key='field'>
+            {{field}}
+          </td>
+          <td>
+            <router-link :to="'books/'+book.id">
+              Edit
+            </router-link>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
