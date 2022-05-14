@@ -11,6 +11,14 @@
       />
     </header>
     <div id="books">
+      <input type="text" v-model="input" placeholder="Search books..." />
+      <div>
+        Add books:
+        <router-link :to="'books/add/new'">Add</router-link>
+      </div>
+      <div>
+
+      </div>
       <table id="booksTable" class="table">
         <thead>
           <tr>
