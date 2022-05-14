@@ -35,7 +35,7 @@ class AuthService {
         localStorage.removeItem('user');
     }
 
-    register(username: string, lastName: string, firstName: string, email: string, password: string, type: string, address: string, phonenumber: string) {
+    register(username: string, lastName: string, firstName: string, email: string, password: string, type: string, address: string, phoneNumber: string) {
         return axios.post(API_URL + '', {
             username,
             firstName,
@@ -44,10 +44,10 @@ class AuthService {
             password,
             type,
             address,
-            phonenumber
+            phoneNumber
         }, {
             headers: {
-                "Content-Type" : "application/json",
+                "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*"
             }
         });
