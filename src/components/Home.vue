@@ -11,6 +11,13 @@
       />
     </header>
     <div id="books">
+      <div>
+        Add books:
+        <router-link :to="'books/add/new'">Add</router-link>
+      </div>
+      <div>
+
+      </div>
       <table id="booksTable" class="table">
         <thead>
           <tr>
