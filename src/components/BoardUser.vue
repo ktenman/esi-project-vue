@@ -2,8 +2,8 @@
   <div class="container">
     <header class="jumbotron">
 <!--      <h3>{{ content }}</h3>-->
-      <ul>
-        <li v-if="content" v-for="item in content" :key="item.id">
+      <ul v-if="content">
+        <li  v-for="item in content" :key="item.id">
           username: {{ item.user.username }}, type: {{ item.user.type }}
         </li>
       </ul>
