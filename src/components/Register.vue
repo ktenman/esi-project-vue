@@ -25,6 +25,38 @@
             </div>
           </div>
           <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input
+                v-model="user.firstName"
+                v-validate="'required|min:3|max:20'"
+                class="form-control"
+                name="firstName"
+                type="text"
+            />
+            <div
+                v-if="submitted && errors.has('firstName')"
+                class="alert-danger"
+            >
+              {{ errors.first("firstName") }}
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input
+                v-model="user.lastName"
+                v-validate="'required|min:3|max:20'"
+                class="form-control"
+                name="lastName"
+                type="text"
+            />
+            <div
+                v-if="submitted && errors.has('lastName')"
+                class="alert-danger"
+            >
+              {{ errors.first("lastName") }}
+            </div>
+          </div>
+          <div class="form-group">
             <label for="email">Email</label>
             <input
                 v-model="user.email"
@@ -51,6 +83,54 @@
                 class="alert-danger"
             >
               {{ errors.first("password") }}
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="role">Role</label>
+            <input
+                v-model="user.role"
+                v-validate="'required|min:6|max:40'"
+                class="form-control"
+                name="role"
+                type="role"
+            />
+            <div
+                v-if="submitted && errors.has('role')"
+                class="alert-danger"
+            >
+              {{ errors.first("role") }}
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="address">Addrress</label>
+            <input
+                v-model="user.address"
+                v-validate="'required|min:6|max:40'"
+                class="form-control"
+                name="address"
+                type="address"
+            />
+            <div
+                v-if="submitted && errors.has('address')"
+                class="alert-danger"
+            >
+              {{ errors.first("address") }}
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="phonenumber">Phone Number</label>
+            <input
+                v-model="user.phonenumber"
+                v-validate="'required|min:6|max:40'"
+                class="form-control"
+                name="phonenumber"
+                type="phonenumber"
+            />
+            <div
+                v-if="submitted && errors.has('phonenumber')"
+                class="alert-danger"
+            >
+              {{ errors.first("phonenumber") }}
             </div>
           </div>
           <div class="form-group">
