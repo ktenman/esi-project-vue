@@ -1,11 +1,11 @@
-import {Action, Module, Mutation, VuexModule} from 'vuex-module-decorators';
+import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators';
 import AuthService from '@/services/AuthService';
 
 const storedUser = localStorage.getItem('user');
 
-@Module({namespaced: true})
+@Module({ namespaced: true })
 class User extends VuexModule {
-    public status = storedUser ? {loggedIn: true} : {loggedIn: false};
+    public status = storedUser ? { loggedIn: true } : { loggedIn: false };
     public user = storedUser ? JSON.parse(storedUser) : null;
 
     get isLoggedIn(): boolean {
@@ -40,7 +40,7 @@ class User extends VuexModule {
         this.status.loggedIn = false;
     }
 
-    @Action({rawError: true})
+    @Action({ rawError: true })
     login(data: any): Promise<any> {
         return AuthService.login(data.username, data.password).then(
             user => {
@@ -64,11 +64,12 @@ class User extends VuexModule {
         this.context.commit('logout');
     }
 
-    @Action({rawError: true})
+    @Action({ rawError: true })
     register(data: any): Promise<any> {
-        return AuthService.register(data.username, data.email, data.password).then(
+        return AuthService.register(data.username, data.lastName, data.firstName, data.email, data.password, 'CUSTOMER', data.address, data.phoneNumber).then(
             response => {
                 this.context.commit('registerSuccess');
+
                 return Promise.resolve(response.data);
             },
             error => {
