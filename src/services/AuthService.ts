@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 const API_URL = 'https://esitartulibrary.herokuapp.com/users';
+// const API_URL = 'http://localhost:8081/users/';
+
 
 class AuthService {
     login(username: string, password: string) {
@@ -33,7 +35,7 @@ class AuthService {
         localStorage.removeItem('user');
     }
 
-    register(username: string, lastName: string, firstName: string, email: string, password: string, type: string, address: string, phonenumber: string) {
+    register(username: string, lastName: string, firstName: string, email: string, password: string, type: string, address: string, phoneNumber: string) {
         return axios.post(API_URL + '', {
             username,
             firstName,
@@ -42,10 +44,10 @@ class AuthService {
             password,
             type,
             address,
-            phonenumber
+            phoneNumber
         }, {
             headers: {
-                "Content-Type" : "application/json",
+                "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*"
             }
         });
