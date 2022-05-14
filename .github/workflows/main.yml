@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - heroku-deploy
 
 jobs:
   build:
