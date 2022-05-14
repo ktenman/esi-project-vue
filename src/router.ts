@@ -3,6 +3,8 @@ import VueRouter, {RouteConfig} from "vue-router";
 import Home from '@/components/Home.vue';
 import Login from '@/components/Login.vue';
 import Register from '@/components/Register.vue';
+import BookAddNew from "@/components/BookAddNew.vue";
+const Book = () => import('@/components/Book.vue')
 
 Vue.use(VueRouter);
 
@@ -13,7 +15,17 @@ const routes: Array<RouteConfig> = [
         component: Home
     },
     {
-        path: '/home',
+        path: '/books/:id',
+        name: 'bookEdit',
+        component: Book
+    },
+    {
+        path: '/books/add/new',
+        name: 'bookAdd',
+        component: BookAddNew
+    },
+    {
+        path: '/books',
         component: Home
     },
     {
