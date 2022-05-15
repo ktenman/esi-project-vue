@@ -45,7 +45,7 @@ const routes: Array<RouteConfig> = [
     },
     {
         path: '/customers/create',
-        name: 'bookAdd',
+        name: 'customerAdd',
         component: Customer
     },
     {

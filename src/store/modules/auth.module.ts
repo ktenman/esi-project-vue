@@ -5,7 +5,7 @@ const storedUser = localStorage.getItem('user');
 
 @Module({ namespaced: true })
 class User extends VuexModule {
-    public status = storedUser ? { loggedIn: true } : { loggedIn: false };
+    public status = { loggedIn: storedUser ? true: false  }
     public user = storedUser ? JSON.parse(storedUser) : null;
 
     get isLoggedIn(): boolean {
@@ -69,7 +69,6 @@ class User extends VuexModule {
         return AuthService.register(data.username, data.lastName, data.firstName, data.email, data.password, 'CUSTOMER', data.address, data.phoneNumber).then(
             response => {
                 this.context.commit('registerSuccess');
-
                 return Promise.resolve(response.data);
             },
             error => {

@@ -27,6 +27,9 @@
       <label>Categories: </label>
       <input v-model="book.categories" />
     </div>
+    <div>
+      <button class="btn btn-primary btn-block mt-2" @click="saveBook()">Save</button>
+    </div>
   </div>
 </template>
 

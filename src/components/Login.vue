@@ -80,7 +80,7 @@ export default class Login extends Vue {
 
   created() {
     if (this.isLoggedIn) {
-      this.$router.push("/profile");
+      this.$router.push("/books");
     }
   }
 

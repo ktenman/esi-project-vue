@@ -3,23 +3,16 @@
     <nav class="navbar navbar-expand navbar-dark bg-dark">
       <a class="navbar-brand" href @click.prevent>Library</a>
       <div class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <router-link class="nav-link" to="/home">
+        <li class="nav-item" v-if="currentUser">
+          <router-link class="nav-link" to="/books">
             <font-awesome-icon icon="home"/>
-            Home
+            Books
           </router-link>
         </li>
-        <li v-if="showCustomerList" class="nav-item">
-          <router-link class="nav-link" to="/customers">Customer list</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link v-if="currentUser" class="nav-link" to="/user"
-          >User
-          </router-link
-          >
+        <li v-if="isLibrarian()" class="nav-item">
+          <router-link class="nav-link" to="/customers">Customers</router-link>
         </li>
       </div>
-
       <div v-if="!currentUser" class="navbar-nav ml-auto">
         <li class="nav-item">
           <router-link class="nav-link" to="/register">
@@ -37,15 +30,15 @@
 
       <div v-if="currentUser" class="navbar-nav ml-auto">
         <li class="nav-item">
-          <router-link class="nav-link" to="/profile">
+          <div  class="nav-link">
             <font-awesome-icon icon="user"/>
             {{ currentUser.username }}
-          </router-link>
+          </div>
         </li>
         <li class="nav-item">
           <a class="nav-link" href @click.prevent="logOut">
             <font-awesome-icon icon="sign-out-alt"/>
-            LogOut
+            Log out
           </a>
         </li>
       </div>
@@ -71,9 +64,9 @@ export default class App extends Vue {
   @Auth.Action
   private signOut!: () => void;
 
-  get showCustomerList(): boolean {
-    if (this.currentUser && this.currentUser.roles) {
-      return this.currentUser.roles.includes("CUSTOMER");
+  isLibrarian(): boolean {
+    if (this.currentUser && this.currentUser.authorities) {
+      return this.currentUser.authorities.includes("LIBRARIAN");
     }
     return false;
   }

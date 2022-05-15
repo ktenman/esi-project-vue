@@ -1,31 +1,46 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <h3>Edit book</h3>
+      <h3>{{ id ? "Edit book" : "Create book" }}</h3>
     </header>
     <div>
       <label>Author: </label>
-      <input v-model="book.author" />
+      <input v-model="book.author" class="form-control" placeholder="Author" />
     </div>
     <div>
       <label>Title: </label>
-      <input v-model="book.title" />
+      <input v-model="book.title" class="form-control" placeholder="Title" />
     </div>
     <div>
       <label>Release Date: </label>
-      <input v-model="book.releaseDate" />
+      <input
+        v-model="book.releaseDate"
+        class="form-control"
+        placeholder="Release date"
+      />
     </div>
     <div>
       <label>status: </label>
-      <input v-model="book.status" />
+      <input v-model="book.status" class="form-control" placeholder="Status" />
     </div>
     <div>
       <label>Language: </label>
-      <input v-model="book.language" />
+      <input
+        v-model="book.language"
+        class="form-control"
+        placeholder="Language"
+      />
     </div>
     <div>
       <label>Categories: </label>
-      <input v-model="book.categories" />
+      <input
+        v-model="book.categories"
+        class="form-control"
+        placeholder="Categories"
+      />
+    </div>
+    <div>
+      <button class="btn btn-primary btn-block mt-2" @click="saveBook()">Save</button>
     </div>
   </div>
 </template>
@@ -57,6 +72,10 @@ export default class Book extends Vue {
           error.toString();
       }
     );
+  }
+
+  saveBook() {
+    console.log('save clicked')
   }
 }
 </script>

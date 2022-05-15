@@ -16,15 +16,16 @@
 
       </div>
       <table id="customersTable" class="table">
-        <thead>
+        <thead v-if="content">
           <tr>
             <th v-for="(value, key) in content[0]" :key="key">
               {{ key }}
             </th>
           </tr>
         </thead>
+        <p v-else>{{error}}</p>
         <tbody>
-          <tr v-for="book in content" :key="book">
+          <tr v-for="book in content" :key="book.id">
             <td v-for="field in book" :key="field">
               {{ field }}
             </td>
@@ -44,7 +45,8 @@ import CustomerService from "@/services/CustomerService";
 
 @Component
 export default class CustomerList extends Vue {
-  private content = "";
+  private content = null;
+  private error = null;
   private searchKey = "";
 
   mounted() {
@@ -56,7 +58,7 @@ export default class CustomerList extends Vue {
         this.content = response.data.content;
       },
       (error) => {
-        this.content =
+        this.error =
           (error.response && error.response.data) ||
           error.message ||
           error.toString();
