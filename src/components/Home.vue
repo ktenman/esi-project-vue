@@ -2,13 +2,10 @@
   <div class="container">
     <header class="jumbotron">
       <h3>List of all books</h3>
-      <input
-        type="text"
-        placeholder="Search"
-        v-model="searchKey"
-        @keyup.enter="loadBooks()"
-        class="form-control"
-      />
+      <div class="input-group">
+          <input @keyup.enter="loadBooks()" type="text" class="form-control" placeholder="Search" v-model="searchKey">
+          <button @click="loadBooks()" class="input-group-text" >&#x1F50E</button>
+      </div>
     </header>
     <div id="books">
       <div>
@@ -43,7 +40,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import UserService from "@/services/UserService";
+import BookService from "@/services/BookService";
 
 @Component
 export default class Home extends Vue {
@@ -54,7 +51,7 @@ export default class Home extends Vue {
     this.loadBooks();
   }
   loadBooks() {
-    UserService.searchPublicContent(this.searchKey, 20, 0).then(
+    BookService.searchPublicContent(this.searchKey, 20, 0).then(
       (response) => {
         this.content = response.data.content;
       },

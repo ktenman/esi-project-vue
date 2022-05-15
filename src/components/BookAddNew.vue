@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import {Component, Vue} from "vue-property-decorator";
-import UserService from "@/services/UserService";
+import BookService from "@/services/BookService";
 
 @Component
 export default class BookAddNew extends Vue {

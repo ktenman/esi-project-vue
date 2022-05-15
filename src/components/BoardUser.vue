@@ -14,14 +14,14 @@
 
 <script lang="ts">
 import {Component, Vue} from "vue-property-decorator";
-import UserService from "@/services/UserService";
+import CustomerService from "@/services/CustomerService";
 
 @Component
 export default class UserBoard extends Vue {
   private content = "";
 
   mounted() {
-    UserService.getUserBoard().then(
+    CustomerService.getUserBoard().then(
         (response) => {
           this.content = response.data;
         },

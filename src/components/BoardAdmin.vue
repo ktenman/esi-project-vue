@@ -8,14 +8,14 @@
 
 <script lang="ts">
 import {Component, Vue} from "vue-property-decorator";
-import UserService from "@/services/UserService";
+import CustomerService from "@/services/CustomerService";
 
 @Component
 export default class AdminBoard extends Vue {
   private content = "";
 
   mounted() {
-    UserService.getAdminBoard().then(
+    CustomerService.getAdminBoard().then(
         (response) => {
           this.content = response.data;
         },

@@ -32,7 +32,7 @@
 
 <script lang="ts">
 import {Component, Vue} from "vue-property-decorator";
-import UserService from "@/services/UserService";
+import BookService from "@/services/BookService";
 
 @Component
 export default class Book extends Vue {
@@ -41,7 +41,7 @@ export default class Book extends Vue {
 
   mounted() {
     this.url_data=this.$route.params.id;
-    UserService.getBook(parseInt(this.url_data)).then(
+    BookService.getBook(parseInt(this.url_data)).then(
         (response) => {
           this.book = response.data;
         },
