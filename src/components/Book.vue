@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <header class="jumbotron">
+    <header>
       <h3>{{ id ? "Edit book" : "Create book" }}</h3>
     </header>
     <div>
@@ -40,7 +40,9 @@
       />
     </div>
     <div>
-      <button class="btn btn-primary btn-block mt-2" @click="saveBook()">Save</button>
+      <button class="btn btn-primary btn-block mt-2" @click="saveBook()">
+        Save
+      </button>
     </div>
   </div>
 </template>
@@ -48,14 +50,22 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import BookService from "@/services/BookService";
+import { namespace } from "vuex-class";
+
+const Auth = namespace("Auth");
 
 @Component
 export default class Book extends Vue {
+  @Auth.State("user")
+  private currentUser!: any;
   private book = "";
   private id = "";
 
   mounted() {
     this.id = this.$route.params.id;
+    if (!this.currentUser) {
+      this.$router.push("/login");
+    }
     if (this.id) {
       this.getBook();
     }
@@ -74,8 +84,8 @@ export default class Book extends Vue {
     );
   }
 
-  saveBook() {
-    console.log('save clicked')
+  saveBook(data: any) {
+    console.log("save clicked");
   }
 }
 </script>

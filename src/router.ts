@@ -1,6 +1,7 @@
 import Vue from 'vue';
-import VueRouter, {RouteConfig} from "vue-router";
+import VueRouter, { RouteConfig } from "vue-router";
 import Book from "@/components/Book.vue";
+import Profile from "@/components/Profile.vue";
 import BookList from '@/components/BookList.vue';
 import Customer from "@/components/Customer.vue";
 import CustomerList from '@/components/CustomerList.vue';
@@ -52,7 +53,12 @@ const routes: Array<RouteConfig> = [
         path: '/customers',
         name: 'customers',
         component: CustomerList
-    }
+    },
+    {
+        path: '/profile',
+        name: 'profile',
+        component: Profile
+    },
 ];
 
 const router = new VueRouter({

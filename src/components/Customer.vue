@@ -1,34 +1,16 @@
 <template>
   <div class="container">
-    <header class="jumbotron">
+    <header>
       <h3>Edit customer</h3>
     </header>
     <div>
-      <label>Author: </label>
-      <input v-model="book.author" />
+      <label>First name: </label>
+      <input v-model="customer.firstName" class="form-control" />
     </div>
     <div>
-      <label>Title: </label>
-      <input v-model="book.title" />
-    </div>
-    <div>
-      <label>Release Date: </label>
-      <input v-model="book.releaseDate" />
-    </div>
-    <div>
-      <label>status: </label>
-      <input v-model="book.status" />
-    </div>
-    <div>
-      <label>Language: </label>
-      <input v-model="book.language" />
-    </div>
-    <div>
-      <label>Categories: </label>
-      <input v-model="book.categories" />
-    </div>
-    <div>
-      <button class="btn btn-primary btn-block mt-2" @click="saveBook()">Save</button>
+      <button class="btn btn-primary btn-block mt-2" @click="saveCustomer()">
+        Save
+      </button>
     </div>
   </div>
 </template>
@@ -36,14 +18,22 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import CustomerService from "@/services/CustomerService";
+import { namespace } from "vuex-class";
+
+const Auth = namespace("Auth");
 
 @Component
-export default class Book extends Vue {
-  private book = "";
+export default class Customer extends Vue {
+  @Auth.State("user")
+  private currentUser!: any;
+  private customer = "";
   private id = "";
 
   mounted() {
     this.id = this.$route.params.id;
+    if (!this.currentUser) {
+      this.$router.push("/login");
+    }
     if (this.id) {
       this.getCustomer();
     }
@@ -51,15 +41,19 @@ export default class Book extends Vue {
   getCustomer() {
     CustomerService.getCustomer(parseInt(this.id)).then(
       (response) => {
-        this.book = response.data;
+        this.customer = response.data;
       },
       (error) => {
-        this.book =
+        this.customer =
           (error.response && error.response.data) ||
           error.message ||
           error.toString();
       }
     );
+  }
+
+  saveCustomer() {
+    console.log("save clicked");
   }
 }
 </script>

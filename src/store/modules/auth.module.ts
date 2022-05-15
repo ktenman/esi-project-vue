@@ -2,11 +2,15 @@ import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators';
 import AuthService from '@/services/AuthService';
 
 const storedUser = localStorage.getItem('user');
+const storedToken = localStorage.getItem('token');
+
 
 @Module({ namespaced: true })
 class User extends VuexModule {
     public status = { loggedIn: storedUser ? true: false  }
     public user = storedUser ? JSON.parse(storedUser) : null;
+    public token = storedToken ? JSON.parse(storedToken) : null;
+    
 
     get isLoggedIn(): boolean {
         return this.status.loggedIn;
@@ -22,12 +26,14 @@ class User extends VuexModule {
     public loginFailure(): void {
         this.status.loggedIn = false;
         this.user = null;
+        this.token = null;
     }
 
     @Mutation
     public logout(): void {
         this.status.loggedIn = false;
         this.user = null;
+        this.token = null;
     }
 
     @Mutation

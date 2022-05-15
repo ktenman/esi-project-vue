@@ -9,8 +9,11 @@
     </header>
     <div id="books">
       <div>
-        Add books:
-        <router-link :to="'books/create'">Add</router-link>
+        <router-link :to="'books/create'">
+          <button class="btn btn-primary btn-block mb-3">
+          ADD NEW BOOK
+          </button>
+        </router-link>
       </div>
       <div>
 
@@ -42,14 +45,22 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import BookService from "@/services/BookService";
+import { namespace } from "vuex-class";
+
+const Auth = namespace("Auth");
 
 @Component
 export default class Home extends Vue {
-  private content = null
-  private error = null
+  @Auth.State("user")
+  private currentUser!: any;
+  private content = null;
+  private error = null;
   private searchKey = "";
 
   mounted() {
+    if (!this.currentUser) {
+      this.$router.push("/login");
+    }
     this.loadBooks();
   }
   loadBooks() {

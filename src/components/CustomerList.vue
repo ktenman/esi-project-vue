@@ -9,8 +9,11 @@
     </header>
     <div id="customers">
       <div>
-        Add books:
-        <router-link :to="'books/add/new'">Add</router-link>
+        <router-link :to="'customers/create'">
+          <button class="btn btn-primary btn-block mb-3">
+          ADD NEW CUSTOMER
+          </button>
+        </router-link>
       </div>
       <div>
 
@@ -42,14 +45,22 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import CustomerService from "@/services/CustomerService";
+import { namespace } from "vuex-class";
+
+const Auth = namespace("Auth");
 
 @Component
 export default class CustomerList extends Vue {
+  @Auth.State("user")
+  private currentUser!: any;
   private content = null;
   private error = null;
   private searchKey = "";
 
   mounted() {
+     if (!this.currentUser) {
+      this.$router.push("/login");
+    }
     this.loadBooks();
   }
   loadBooks() {

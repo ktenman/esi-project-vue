@@ -1,28 +1,34 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand navbar-dark bg-dark">
-      <a class="navbar-brand" href @click.prevent>Library</a>
+    <nav class="navbar navbar-expand navbar-white bg-white">
+      <a class="navbar-brand" href @click.prevent>
+        <img src="./assets/logo.png" class="image-responsive" style="height:50px">
+        Library
+        </a>
       <div class="navbar-nav mr-auto">
         <li class="nav-item" v-if="currentUser">
           <router-link class="nav-link" to="/books">
-            <font-awesome-icon icon="home"/>
+            <font-awesome-icon icon="book" />
             Books
           </router-link>
         </li>
         <li v-if="isLibrarian()" class="nav-item">
-          <router-link class="nav-link" to="/customers">Customers</router-link>
+          <router-link class="nav-link" to="/customers">
+            <font-awesome-icon icon="users" />
+            Customers
+          </router-link>
         </li>
       </div>
       <div v-if="!currentUser" class="navbar-nav ml-auto">
         <li class="nav-item">
           <router-link class="nav-link" to="/register">
-            <font-awesome-icon icon="user-plus"/>
+            <font-awesome-icon icon="user-plus" />
             Sign Up
           </router-link>
         </li>
         <li class="nav-item">
           <router-link class="nav-link" to="/login">
-            <font-awesome-icon icon="sign-in-alt"/>
+            <font-awesome-icon icon="sign-in-alt" />
             Login
           </router-link>
         </li>
@@ -30,14 +36,14 @@
 
       <div v-if="currentUser" class="navbar-nav ml-auto">
         <li class="nav-item">
-          <div  class="nav-link">
-            <font-awesome-icon icon="user"/>
+          <router-link class="nav-link" to="/profile">
+            <font-awesome-icon icon="user" />
             {{ currentUser.username }}
-          </div>
+          </router-link>
         </li>
         <li class="nav-item">
           <a class="nav-link" href @click.prevent="logOut">
-            <font-awesome-icon icon="sign-out-alt"/>
+            <font-awesome-icon icon="sign-out-alt" />
             Log out
           </a>
         </li>
@@ -45,14 +51,14 @@
     </nav>
 
     <div class="container">
-      <router-view/>
+      <router-view />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import {Component, Vue} from "vue-property-decorator";
-import {namespace} from "vuex-class";
+import { Component, Vue } from "vue-property-decorator";
+import { namespace } from "vuex-class";
 
 const Auth = namespace("Auth");
 
