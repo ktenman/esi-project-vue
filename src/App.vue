@@ -9,11 +9,8 @@
             Home
           </router-link>
         </li>
-        <li v-if="showAdminBoard" class="nav-item">
-          <router-link class="nav-link" to="/admin">Admin Board</router-link>
-        </li>
-        <li v-if="showModeratorBoard" class="nav-item">
-          <router-link class="nav-link" to="/mod">Moderator Board</router-link>
+        <li v-if="showCustomerList" class="nav-item">
+          <router-link class="nav-link" to="/customers">Customer list</router-link>
         </li>
         <li class="nav-item">
           <router-link v-if="currentUser" class="nav-link" to="/user"
@@ -74,19 +71,10 @@ export default class App extends Vue {
   @Auth.Action
   private signOut!: () => void;
 
-  get showAdminBoard(): boolean {
+  get showCustomerList(): boolean {
     if (this.currentUser && this.currentUser.roles) {
-      return this.currentUser.roles.includes("ROLE_ADMIN");
+      return this.currentUser.roles.includes("CUSTOMER");
     }
-
-    return false;
-  }
-
-  get showModeratorBoard(): boolean {
-    if (this.currentUser && this.currentUser.roles) {
-      return this.currentUser.roles.includes("ROLE_MODERATOR");
-    }
-
     return false;
   }
 

@@ -10,7 +10,7 @@
     <div id="books">
       <div>
         Add books:
-        <router-link :to="'books/add/new'">Add</router-link>
+        <router-link :to="'books/create'">Add</router-link>
       </div>
       <div>
 
@@ -29,7 +29,7 @@
               {{ field }}
             </td>
             <td>
-              <router-link :to="'books/' + book.id"> Edit </router-link>
+              <router-link :to="'books/edit/' + book.id"> Edit </router-link>
             </td>
           </tr>
         </tbody>
@@ -51,7 +51,7 @@ export default class Home extends Vue {
     this.loadBooks();
   }
   loadBooks() {
-    BookService.searchPublicContent(this.searchKey, 20, 0).then(
+    BookService.searchBooks(this.searchKey, 20, 0).then(
       (response) => {
         this.content = response.data.content;
       },

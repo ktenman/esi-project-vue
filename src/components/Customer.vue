@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <h3>Edit book</h3>
+      <h3>Edit customer</h3>
     </header>
     <div>
       <label>Author: </label>
@@ -32,7 +32,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import BookService from "@/services/BookService";
+import CustomerService from "@/services/CustomerService";
 
 @Component
 export default class Book extends Vue {
@@ -42,11 +42,11 @@ export default class Book extends Vue {
   mounted() {
     this.id = this.$route.params.id;
     if (this.id) {
-      this.getBook();
+      this.getCustomer();
     }
   }
-  getBook() {
-    BookService.getBook(parseInt(this.id)).then(
+  getCustomer() {
+    CustomerService.getCustomer(parseInt(this.id)).then(
       (response) => {
         this.book = response.data;
       },

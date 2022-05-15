@@ -7,7 +7,7 @@ const API_URL = 'http://localhost:8081/';
 
 class BookService {
 
-    searchPublicContent(searchKey: string, pageSize: number, pageIndex: number) {
+    searchBooks(searchKey: string, pageSize: number, pageIndex: number) {
         return axios.get(API_URL + `books/search?searchKey=${searchKey}&pageSize=20&pageIndex=0`, { headers: authHeader() });
     }
 

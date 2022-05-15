@@ -1,10 +1,11 @@
 import Vue from 'vue';
 import VueRouter, {RouteConfig} from "vue-router";
-import Home from '@/components/Home.vue';
+import Book from "@/components/Book.vue";
+import BookList from '@/components/BookList.vue';
+import Customer from "@/components/Customer.vue";
+import CustomerList from '@/components/CustomerList.vue';
 import Login from '@/components/Login.vue';
 import Register from '@/components/Register.vue';
-import BookAddNew from "@/components/BookAddNew.vue";
-const Book = () => import('@/components/Book.vue')
 
 Vue.use(VueRouter);
 
@@ -12,21 +13,22 @@ const routes: Array<RouteConfig> = [
     {
         path: '/',
         name: 'home',
-        component: Home
+        component: CustomerList
     },
     {
-        path: '/books/:id',
+        path: '/books/edit/:id',
         name: 'bookEdit',
         component: Book
     },
     {
-        path: '/books/add/new',
+        path: '/books/create',
         name: 'bookAdd',
-        component: BookAddNew
+        component: Book
     },
     {
         path: '/books',
-        component: Home
+        name: 'bookList',
+        component: BookList
     },
     {
         path: '/login',
@@ -37,25 +39,19 @@ const routes: Array<RouteConfig> = [
         component: Register
     },
     {
-        path: '/profile',
-        name: 'profile',
-        // lazy-loaded
-        component: () => import('./components/Profile.vue')
+        path: '/customers/edit/:id',
+        name: 'customerEdit',
+        component: Customer
     },
     {
-        path: '/admin',
-        name: 'admin',
-        component: () => import('./components/BoardAdmin.vue')
+        path: '/customers/create',
+        name: 'bookAdd',
+        component: Customer
     },
     {
-        path: '/mod',
-        name: 'moderator',
-        component: () => import('./components/BoardModerator.vue')
-    },
-    {
-        path: '/user',
-        name: 'user',
-        component: () => import('./components/BoardUser.vue')
+        path: '/customers',
+        name: 'customers',
+        component: CustomerList
     }
 ];
 
@@ -64,20 +60,6 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     routes
 });
-
-// router.beforeEach((to, from, next) => {
-//   const publicPages = ['/login', '/register', '/home'];
-//   const authRequired = !publicPages.includes(to.path);
-//   const loggedIn = localStorage.getItem('user');
-
-//   // trying to access a restricted page + not logged in
-//   // redirect to login page
-//   if (authRequired && !loggedIn) {
-//     next('/login');
-//   } else {
-//     next();
-//   }
-// });
 
 export default router;
 
