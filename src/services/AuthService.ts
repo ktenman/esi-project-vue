@@ -1,9 +1,5 @@
 import axios from 'axios';
-
-// const API_URL = 'https://esitartulibrary.herokuapp.com/users';
-const API_URL = 'http://localhost:8081/users';
-
-
+import {API_URL} from "@/services/Config";
 class AuthService {
     login(username: string, password: string) {
 
