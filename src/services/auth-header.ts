@@ -3,7 +3,7 @@ export default function authHeader() : {} {
     let jwtToken = JSON.parse(token ? token : "");
 
     if (jwtToken) {
-        return { Authorization: 'Bearer ' + jwtToken };
+        return { Authorization: 'Bearer ' + jwtToken, "Access-Control-Allow-Origin": "*" };
     } else {
         return {};
     }

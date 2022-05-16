@@ -12,15 +12,14 @@ class BookService {
         return axios.get(API_URL + '/books/' + id, { headers: authHeader() });
     }
 
-    editBook(book: JSON) {
-        return axios.put(API_URL + '/books',book, { headers: authHeader() });
+    editBook(book: any) {
+        console.log(book)
+        return axios.put(API_URL + '/books', book, { headers: authHeader() });
     }
 
     createBook(book: JSON) {
         return axios.post(API_URL + '/books',book, { headers: authHeader() });
     }
-
-
 }
 
 export default new BookService();

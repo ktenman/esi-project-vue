@@ -60,7 +60,7 @@ export default class Book extends Vue {
   private currentUser!: any;
   private book = "";
   private id = "";
-
+  
   mounted() {
     this.id = this.$route.params.id;
     if (!this.currentUser) {
@@ -84,8 +84,19 @@ export default class Book extends Vue {
     );
   }
 
-  saveBook(data: any) {
-    console.log("save clicked");
+  saveBook() {
+    BookService.editBook(this.book).then(
+      (response) => {
+        this.book = response.data;
+      },
+      (error) => {
+        this.book =
+          (error.response && error.response.data) ||
+          error.message ||
+          error.toString();
+      }
+    );
+  
   }
 }
 </script>
