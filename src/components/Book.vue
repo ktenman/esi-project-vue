@@ -5,23 +5,23 @@
     </header>
     <div>
       <label>Author: </label>
-      <input v-model="book.author" class="form-control" placeholder="Author" />
+      <input v-model="book.author" class="form-control" placeholder="Author"/>
     </div>
     <div>
       <label>Title: </label>
-      <input v-model="book.title" class="form-control" placeholder="Title" />
+      <input v-model="book.title" class="form-control" placeholder="Title"/>
     </div>
     <div>
       <label>Release Date: </label>
       <input
-        v-model="book.releaseDate"
+        v-model="book.year"
         class="form-control"
         placeholder="Release date"
       />
     </div>
     <div>
       <label>status: </label>
-      <input v-model="book.status" class="form-control" placeholder="Status" />
+      <input v-model="book.status" class="form-control" placeholder="Status"/>
     </div>
     <div>
       <label>Language: </label>
@@ -58,7 +58,14 @@ const Auth = namespace("Auth");
 export default class Book extends Vue {
   @Auth.State("user")
   private currentUser!: any;
-  private book = "";
+  private book = {
+    author: "",
+    title: "",
+    year: "",
+    status: "",
+    language: "",
+    categories: ""
+  };
   private id = "";
 
   mounted() {
@@ -70,10 +77,16 @@ export default class Book extends Vue {
       this.getBook();
     }
   }
+
   getBook() {
     BookService.getBook(parseInt(this.id)).then(
       (response) => {
-        this.book = response.data;
+        this.book.author = response.data.author;
+        this.book.title = response.data.title;
+        this.book.year = response.data.releaseDate;
+        this.book.status = response.data.status;
+        this.book.categories = response.data.categories;
+        this.book.language = response.data.language;
       },
       (error) => {
         this.book =
@@ -84,8 +97,22 @@ export default class Book extends Vue {
     );
   }
 
-  saveBook(data: any) {
-    console.log("save clicked");
+  saveBook() {
+
+    if (this.id != "") {
+      BookService.editBook({
+        id: this.id,
+        author: this.book.author,
+        title: this.book.title,
+        year: this.book.year,
+        status: this.book.status,
+        language: this.book.language,
+        categories: this.book.categories
+      });
+    }
+    else {
+      BookService.createBook(this.book);
+    }
   }
 }
 </script>
