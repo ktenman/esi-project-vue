@@ -89,6 +89,9 @@ export default class Book extends Vue {
     if (!this.currentUser) {
       this.$router.push("/login");
     }
+    if (!this.isLibrarian()) {
+      this.$router.push("/books");
+    }
     this.getCategories();
     if (this.id) {
       this.getBook();
@@ -163,6 +166,13 @@ export default class Book extends Vue {
         categories: this.book.selectedCategory
       });
     }
+  }
+
+  isLibrarian(): boolean {
+    if (this.currentUser && this.currentUser.authorities) {
+      return this.currentUser.authorities.includes("LIBRARIAN");
+    }
+    return false;
   }
 }
 </script>
