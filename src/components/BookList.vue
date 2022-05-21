@@ -32,7 +32,7 @@
             <td v-for="field in book" :key="field">
               {{ field }}
             </td>
-            <td>
+            <td v-if="isLibrarian()">
               <router-link :to="'books/edit/' + book.id"> Edit </router-link>
             </td>
           </tr>
@@ -75,6 +75,12 @@ export default class Home extends Vue {
           error.toString();
       }
     );
+  }
+  isLibrarian(): boolean {
+    if (this.currentUser && this.currentUser.authorities) {
+      return this.currentUser.authorities.includes("LIBRARIAN");
+    }
+    return false;
   }
 }
 </script>
