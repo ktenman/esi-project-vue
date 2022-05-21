@@ -70,6 +70,9 @@ const Auth = namespace("Auth");
 export default class Book extends Vue {
   @Auth.State("user")
   private currentUser!: any;
+  private id = "";
+  private allCategories: any;
+  private bookCategory: any;
   private book = {
     author: "",
     title: "",
@@ -78,10 +81,8 @@ export default class Book extends Vue {
     selectedStatus: "",
     language: "",
     categories: [],
-    selectedCategory: []
+    selectedCategory: this.bookCategory
   };
-  private id = "";
-  private allCategories: any;
 
   mounted() {
     this.id = this.$route.params.id;
@@ -142,7 +143,6 @@ export default class Book extends Vue {
     }
 
     if (this.id) {
-      console.log(this.id);
       BookService.editBook({
         id: this.id,
         author: this.book.author,
