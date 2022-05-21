@@ -20,7 +20,9 @@ class BookService {
         return axios.post(API_URL + '/books',book, { headers: authHeader() });
     }
 
-
+    getBookCategories() {
+        return axios.get(API_URL + '/books/categories',{ headers: authHeader() });
+    }
 }
 
 export default new BookService();

@@ -20,8 +20,18 @@
       />
     </div>
     <div>
-      <label>status: </label>
-      <input v-model="book.status" class="form-control" placeholder="Status"/>
+      <br>
+      <form>
+        <label>Current status: {{this.book.status}}</label><br>
+        <label for="statusList">Choose another status:</label>
+        <select v-model="book.selectedStatus" name="statusList" id="statusList">
+          <option value="AVAILABLE">AVAILABLE</option>
+          <option value="BOOKED">BOOKED</option>
+          <option value="DELETED">DELETED</option>
+          <option value="RENTED">RENTED</option>
+          <option value="UNAVAILABLE">UNAVAILABLE</option>
+        </select>
+      </form>
     </div>
     <div>
       <label>Language: </label>
@@ -32,12 +42,14 @@
       />
     </div>
     <div>
-      <label>Categories: </label>
-      <input
-        v-model="book.categories"
-        class="form-control"
-        placeholder="Categories"
-      />
+      <br>
+      <form>
+        <label>Current category: {{this.book.categories[0]}}</label><br>
+        <label for="categoriesList">Choose another category:</label>
+        <select v-model="book.selectedCategory" name="categoriesList" id="categoriesList">
+          <option v-for="category in allCategories">{{category.value}}</option>
+        </select>
+      </form>
     </div>
     <div>
       <button class="btn btn-primary btn-block mt-2" @click="saveBook()">
@@ -63,19 +75,37 @@ export default class Book extends Vue {
     title: "",
     year: "",
     status: "",
+    selectedStatus: "",
     language: "",
-    categories: ""
+    categories: [],
+    selectedCategory: []
   };
   private id = "";
+  private allCategories: any;
 
   mounted() {
     this.id = this.$route.params.id;
     if (!this.currentUser) {
       this.$router.push("/login");
     }
+    this.getCategories();
     if (this.id) {
       this.getBook();
     }
+  }
+
+  getCategories() {
+    BookService.getBookCategories().then(
+      (response) => {
+        this.allCategories = response.data.categories;
+        },
+        (error) => {
+          this.allCategories =
+              (error.response && error.response.data) ||
+              error.message ||
+              error.toString();
+        }
+    );
   }
 
   getBook() {
@@ -99,19 +129,39 @@ export default class Book extends Vue {
 
   saveBook() {
 
-    if (this.id != "") {
+    if (this.book.selectedCategory.length == 0) {
+      this.book.selectedCategory = this.book.categories;
+    }
+
+    if (this.book.selectedStatus == "") {
+      this.book.selectedStatus = this.book.status;
+    }
+
+    if (typeof this.book.selectedCategory === 'string') {
+      this.book.selectedCategory = this.book.selectedCategory.split(",");
+    }
+
+    if (this.id) {
+      console.log(this.id);
       BookService.editBook({
         id: this.id,
         author: this.book.author,
         title: this.book.title,
         year: this.book.year,
-        status: this.book.status,
+        status: this.book.selectedStatus,
         language: this.book.language,
-        categories: this.book.categories
+        categories: this.book.selectedCategory
       });
     }
     else {
-      BookService.createBook(this.book);
+      BookService.createBook({
+        author: this.book.author,
+        title: this.book.title,
+        year: this.book.year,
+        status: this.book.selectedStatus,
+        language: this.book.language,
+        categories: this.book.selectedCategory
+      });
     }
   }
 }
