@@ -12,11 +12,11 @@
       <input v-model="book.title" class="form-control" placeholder="Title"/>
     </div>
     <div>
-      <label>Release Date: </label>
+      <label>Year: </label>
       <input
         v-model="book.year"
         class="form-control"
-        placeholder="Release date"
+        placeholder="Year"
       />
     </div>
     <div>
@@ -117,7 +117,7 @@ export default class Book extends Vue {
       (response) => {
         this.book.author = response.data.author;
         this.book.title = response.data.title;
-        this.book.year = response.data.releaseDate;
+        this.book.year = response.data.year;
         this.book.status = response.data.status;
         this.book.categories = response.data.categories;
         this.book.language = response.data.language;
@@ -166,6 +166,8 @@ export default class Book extends Vue {
         categories: this.book.selectedCategory
       });
     }
+    this.$router.push("/books");
+    this.$router.go(0);
   }
 
   isLibrarian(): boolean {
