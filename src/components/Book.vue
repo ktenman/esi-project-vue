@@ -130,7 +130,7 @@ export default class Book extends Vue {
 
   saveBook() {
 
-    if (this.book.selectedCategory.length == 0) {
+    if (!this.book.selectedCategory) {
       this.book.selectedCategory = this.book.categories;
     }
 
