@@ -38,6 +38,9 @@
           <td v-if="book.status !== 'RENTED'">
             <button @click="borrow(book.id)" class="input-group-text">Borrow</button>
           </td>
+          <td v-if="book.status === 'RENTED' && isLibrarian()">
+            <button @click="release(book.id)" class="input-group-text">Release</button>
+          </td>
         </tr>
         </tbody>
       </table>
@@ -118,6 +121,17 @@ export default class Home extends Vue {
 
   borrow(bookId: number) {
     BorrowingService.borrow({
+      bookId: bookId
+    }).then(
+        (response) => {
+          this.loadBooks();
+        },
+        (error) => this.extractErrorMessage(error)
+    );
+  }
+
+  release(bookId: number) {
+    BorrowingService.release({
       bookId: bookId
     }).then(
         (response) => {

@@ -8,6 +8,10 @@ class BorrowingService {
         return axios.post(API_URL + '/borrowings', borrowing, { headers: authHeader() });
     }
 
+    release(borrowing: any) {
+        return axios.put(API_URL + '/borrowings', borrowing, { headers: authHeader() });
+    }
+
 }
 
 export default new BorrowingService();

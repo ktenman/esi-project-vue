@@ -9,8 +9,5 @@ class CustomerService {
     getCustomer(id: number) {
         return axios.get(API_URL + 'customers/' + id, { headers: authHeader() });
     }
-    getAdminBoard() {
-        return axios.get(API_URL + 'customers', { headers: authHeader() });
-    }
 }
 export default new CustomerService();
