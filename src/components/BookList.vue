@@ -35,7 +35,7 @@
           <td v-if="isLibrarian()">
             <router-link :to="'books/edit/' + book.id"> Edit</router-link>
           </td>
-          <td v-if="book.status != 'RENTED'">
+          <td v-if="book.status !== 'RENTED'">
             <button @click="borrow(book.id)" class="input-group-text">Borrow</button>
           </td>
         </tr>
