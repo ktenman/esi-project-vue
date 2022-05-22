@@ -112,6 +112,19 @@
             </div>
           </div>
           <div class="form-group">
+            <label for="idCode">Id code</label>
+            <input
+                v-model="user.idCode"
+                v-validate="'required|min:3|max:20'"
+                class="form-control"
+                name="idCode"
+                type="text"
+            />
+            <div v-if="submitted && errors.has('idCode')" class="alert-danger">
+              {{ errors.first("idCode") }}
+            </div>
+          </div>
+          <div class="form-group">
             <button class="btn btn-primary btn-block">Sign Up</button>
           </div>
         </div>
@@ -136,7 +149,7 @@ const Auth = namespace("Auth");
 
 @Component
 export default class Register extends Vue {
-  private user: any = { username: "", email: "", password: "" };
+  private user: any = { username: "", email: "", password: "", idCode: "" };
 
   private submitted: boolean = false;
   private successful: boolean = false;

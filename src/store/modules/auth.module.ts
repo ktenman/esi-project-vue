@@ -72,7 +72,7 @@ class User extends VuexModule {
 
     @Action({ rawError: true })
     register(data: any): Promise<any> {
-        return AuthService.register(data.username, data.lastName, data.firstName, data.email, data.password, 'CUSTOMER', data.address, data.phoneNumber).then(
+        return AuthService.register(data.username, data.lastName, data.firstName, data.email, data.password, data.address, data.phoneNumber, data.idCode).then(
             response => {
                 this.context.commit('registerSuccess');
                 return Promise.resolve(response.data);
