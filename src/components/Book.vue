@@ -83,6 +83,7 @@ export default class Book extends Vue {
     categories: [],
     selectedCategory: this.bookCategory
   };
+  private error = null;
 
   mounted() {
     this.id = this.$route.params.id;
@@ -104,7 +105,7 @@ export default class Book extends Vue {
         this.allCategories = response.data.categories;
         },
         (error) => {
-          this.allCategories =
+          this.error =
               (error.response && error.response.data) ||
               error.message ||
               error.toString();

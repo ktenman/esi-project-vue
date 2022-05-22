@@ -12,6 +12,10 @@ class BorrowingService {
         return axios.put(API_URL + '/borrowings', borrowing, { headers: authHeader() });
     }
 
+    getAllBookRentingRequests() {
+        return axios.get(API_URL + '/borrowings', { headers: authHeader() });
+    }
+
 }
 
 export default new BorrowingService();
